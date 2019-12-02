@@ -1,61 +1,9 @@
 var builder = {
     pwdLength : 8,
-    specialChar: true,
-    numbers : true,
+    specialChar: false,
+    numbers : false,
     lowerCase : true,
-    upperCase : true,
-    setLength : function() {
-        var pwdLength = prompt("How many characters do you want? Choose a number between 8 and 128.");
-        builder.pwdLength = parseInt(pwdLength);
-        if (isNaN(builder.pwdLength) || builder.pwdLength < 8 || builder.pwdLength > 128) {
-            alert("Please select a number between 8 and 128!");
-        }
-    },
-
-    allowSpecialChars : function() {
-        var specialChar = prompt("Do you want to use special characters? Answer Y to YES or N to NO.");
-        
-        if (specialChar.toLowerCase() !== 'y' && specialChar.toLowerCase() !== 'n') {
-            alert("Invalid Value! Answer with Y or N.");
-            
-        } else {
-            builder.specialChar = specialChar.toLowerCase() === 'y';
-        }
-       
-    },
-
-    allowNumbers : function() {
-        var numbers = prompt("Do you want to use Numbers? Answer Y to YES or N to NO.");
-        
-        if (numbers.toLowerCase() !== 'y' && numbers.toLowerCase() !== 'n') {
-            alert("Invalid Value! Answer with Y or N.");
-            
-        } else {
-            builder.numbers = numbers.toLowerCase() === 'y';
-        }
-    },
-
-    allowLowerCase : function() {
-        var lowerCase = prompt("Do you want to use lower Case? Answer Y to YES or N to NO.");
-        
-        if (lowerCase.toLowerCase() !== 'y' && lowerCase.toLowerCase() !== 'n') {
-            alert("Invalid Value! Answer with Y or N.");
-            
-        } else {
-            builder.lowerCase = lowerCase.toLowerCase() === 'y';
-        }
-    },
-
-    allowUpperCase : function() {
-        var upperCase = prompt("Do you want to use upper Case? Answer Y to YES or N to NO.");
-        
-        if (upperCase.toLowerCase() !== 'y' && upperCase.toLowerCase() !== 'n') {
-            alert("Invalid Value! Answer with Y or N.");
-            
-        } else {
-            builder.upperCase = upperCase.toLowerCase() === 'y';
-        }
-    }
+    upperCase : true
 };
 
 var charset = {
@@ -65,12 +13,35 @@ var charset = {
     number : "0123456789"
 };
 
+function setLength() {
+    var ans = prompt("How many characters do you want? Choose a number between 8 and 128.");
+    
+    var pwdLength = parseInt(ans);
+    
+    if (isNaN(pwdLength) || pwdLength < 8 || pwdLength > 128) {
+        alert("Please select a number between 8 and 128!");
+    } else {
+        builder.pwdLength = pwdLength;
+    }
+}
+
+function allowChars(charType) {
+    var result = prompt("Do you want to use "+charType+"? Answer Y to YES or N to NO.");
+        
+    if (result.toLowerCase() !== 'y' && result.toLowerCase() !== 'n') {
+        alert("Invalid Value! Answer with Y or N.");
+        
+    } else {
+         return result.toLowerCase() === 'y';
+    }
+}
+
 function setOptions() {
-    builder.setLength();
-    builder.allowSpecialChars();
-    builder.allowNumbers();
-    builder.allowLowerCase();
-    builder.allowUpperCase();
+    setLength();
+    builder.specialChar = allowChars("Special Characters");
+    builder.numbers = allowChars("Numbers");
+    builder.lowerCase = allowChars("Lower Case");
+    builder.upperCase = allowChars("Upper Case");
 }
 
 function generatePassword() {
@@ -89,10 +60,11 @@ function generatePassword() {
     if (builder.specialChar) {
         chars = chars + charset.special;
     }
+    
     var pwd = "";
     for ( var i = 0; i < builder.pwdLength; i++ ) {
         pwd += chars.charAt(Math.floor(Math.random() * chars.length));
-     }
+    }
 
      console.log(pwd);
 };
