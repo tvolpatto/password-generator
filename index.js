@@ -26,45 +26,45 @@ function setLength() {
 }
 
 function allowChars(charType) {
-    var result = prompt("Do you want to use "+charType+"? Answer Y to YES or N to NO.");
-        
-    if (result.toLowerCase() !== 'y' && result.toLowerCase() !== 'n') {
-        alert("Invalid Value! Answer with Y or N.");
-        
-    } else {
-         return result.toLowerCase() === 'y';
-    }
+    return confirm("Do you want to use "+charType+"?");
 }
 
-function setOptions() {
+function validateOptions() {
     setLength();
     builder.specialChar = allowChars("Special Characters");
     builder.numbers = allowChars("Numbers");
     builder.lowerCase = allowChars("Lower Case");
     builder.upperCase = allowChars("Upper Case");
+    
+    return builder.specialChar || builder.numbers ||  builder.lowerCase 
+        || builder.upperCase;
 }
 
 function generatePassword() {
-    setOptions();
-
-    var chars = "";
-    if (builder.lowerCase) {
-        chars = charset.lowerCase;
-    } 
-    if (builder.upperCase) {
-        chars = chars + charset.upperCase;
-    }
-    if (builder.numbers) {
-        chars = chars + charset.number;
-    }
-    if (builder.specialChar) {
-        chars = chars + charset.special;
-    }
+    if ( validateOptions() ) {
+        var chars = "";
+        if (builder.lowerCase) {
+            chars = charset.lowerCase;
+        } 
+        if (builder.upperCase) {
+            chars = chars + charset.upperCase;
+        }
+        if (builder.numbers) {
+            chars = chars + charset.number;
+        }
+        if (builder.specialChar) {
+            chars = chars + charset.special;
+        }
+        
+        var pwd = "";
+        for ( var i = 0; i < builder.pwdLength; i++ ) {
+            pwd += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
     
-    var pwd = "";
-    for ( var i = 0; i < builder.pwdLength; i++ ) {
-        pwd += chars.charAt(Math.floor(Math.random() * chars.length));
+         console.log(pwd);
+    
+    } else {
+        alert("Please confirm at least one of the Characters options!");
     }
 
-     console.log(pwd);
 };
