@@ -57,3 +57,42 @@ var builder = {
         }
     }
 };
+
+var charset = {
+    lowerCase : "abcdefghijklmnopqrstuvwxyz",
+    upperCase : "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    special : " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~",
+    number : "0123456789"
+};
+
+function setOptions() {
+    builder.setLength();
+    builder.allowSpecialChars();
+    builder.allowNumbers();
+    builder.allowLowerCase();
+    builder.allowUpperCase();
+}
+
+function generatePassword() {
+    setOptions();
+
+    var chars = "";
+    if (builder.lowerCase) {
+        chars = charset.lowerCase;
+    } 
+    if (builder.upperCase) {
+        chars = chars + charset.upperCase;
+    }
+    if (builder.numbers) {
+        chars = chars + charset.number;
+    }
+    if (builder.specialChar) {
+        chars = chars + charset.special;
+    }
+    var pwd = "";
+    for ( var i = 0; i < builder.pwdLength; i++ ) {
+        pwd += chars.charAt(Math.floor(Math.random() * chars.length));
+     }
+
+     console.log(pwd);
+};
