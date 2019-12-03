@@ -2,8 +2,8 @@ var builder = {
     pwdLength : 8,
     specialChar: false,
     numbers : false,
-    lowerCase : true,
-    upperCase : true
+    lowerCase : false,
+    upperCase : false
 };
 
 var charset = {
@@ -61,10 +61,16 @@ function generatePassword() {
             pwd += chars.charAt(Math.floor(Math.random() * chars.length));
         }
     
-         console.log(pwd);
+        document.getElementById("password").innerHTML = pwd;
     
     } else {
         alert("Please confirm at least one of the Characters options!");
     }
+}
 
-};
+function copyToClipboard() {
+    var txtArea = document.getElementById("password");
+    txtArea.select();
+    document.execCommand("copy");
+
+}
