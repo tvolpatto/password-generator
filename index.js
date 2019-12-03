@@ -1,3 +1,4 @@
+/* Object builder to create all the password options */
 var builder = {
     pwdLength : 8,
     specialChar: false,
@@ -6,6 +7,7 @@ var builder = {
     upperCase : false
 };
 
+/* Object charset with all the available characters */
 var charset = {
     lowerCase : "abcdefghijklmnopqrstuvwxyz",
     upperCase : "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -13,6 +15,7 @@ var charset = {
     number : "0123456789"
 };
 
+/* Sets the password length */
 function setLength() {
     var ans = prompt("How many characters do you want? Choose a number between 8 and 128.");
     
@@ -25,10 +28,15 @@ function setLength() {
     }
 }
 
+/* Define what kind of chars will be available for the password */
+/* charType String                                              */
+/* returns boolean                                              */ 
 function allowChars(charType) {
     return confirm("Do you want to use "+charType+"?");
 }
 
+/* validate the password options and update the builder object  */
+/* returns boolean                                              */
 function validateOptions() {
     setLength();
     builder.specialChar = allowChars("Special Characters");
@@ -40,6 +48,8 @@ function validateOptions() {
         || builder.upperCase;
 }
 
+ /* Generates a random password with the options chosen by the user, if no option */
+ /* is chosen an alert will pop up to the user and the pwd will not be created    */
 function generatePassword() {
     if ( validateOptions() ) {
         var chars = "";
@@ -68,6 +78,7 @@ function generatePassword() {
     }
 }
 
+/* Copy the password created to the clipboard */
 function copyToClipboard() {
     var txtArea = document.getElementById("password");
     txtArea.select();
