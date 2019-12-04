@@ -1,0 +1,11 @@
+.container {
+    max-width: 860px;
+}
+
+.textarea-border {
+    border: 2px dashed gray;
+}
+
+.text-lg {
+    font-size: 2em;
+}
