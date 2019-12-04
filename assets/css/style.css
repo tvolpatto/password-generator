@@ -1,5 +1,12 @@
+body {
+    background-image: url("../images/email-pattern.png"); 
+}
+
 .container {
     max-width: 860px;
+    border: 1px solid lightgray;
+    background-color: white;
+    
 }
 
 .textarea-border {
