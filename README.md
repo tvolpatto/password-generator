@@ -10,7 +10,7 @@
 
 ## Criteria
 
-   Passwords must contains between 8 and 128 characters and at least one of the below options
+   Passwords must contains between **8 and 128 characters** and at least one of the below options:
    
    * Numbers
    * Lower case letters
